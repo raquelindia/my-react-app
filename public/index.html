@@ -39,5 +39,88 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+    <p id="demo"></p>
+    <h3>Arrow function 'this' example:</h3>
+    <button id="btn">Click me :ppp</button>
+    <p><strong>this</strong> represents: </p>
+    <p id="demo1"></p>
+
+    <h3>Regular function 'this' example</h3>
+    <button id="btn1">Click meee ._.</button>
+    <p><strong>this</strong> represents: </p>
+    <p id="demo2"></p>
+
+  <script>
+    class Car {
+      constructor(name) {
+        this.brand = name;
+      }
+
+      present(){
+        return 'I have a ' + this.brand;
+      }
+    }
+
+    class Model extends Car {
+      constructor(name, mod) {
+        super(name);
+        this.model = mod;
+      }
+      show() {
+        return this.present() + ', it is a ' + this.model
+      }
+    }
+
+hello = val => "Helllo " + val;
+
+
+    class Header {
+      constructor() {
+        this.color = "Red";
+      }
+
+      //Example of Arrow function 'this' keyword
+      changeColor = () => {
+        document.getElementById("demo1").innerHTML += this;
+      }
+    }
+
+    const myheader = new Header();
+
+    //The window object calls the function:
+    window.addEventListener("load", myheader.changeColor);
+
+    //A button object calls the function:
+    document.getElementById("btn").addEventListener("click", myheader.changeColor);
+
+    class Header1 {
+      constructor() {
+        this.color = "Red";
+      }
+      //Example of regular function 'this' keyword
+      changeColor1 = function () {
+        document.getElementById("demo2").innerHTML += this;
+      }
+    }
+
+    const myheader1 = new Header1();
+
+    //window object calls the function:
+    window.addEventListener("load", myheader1.changeColor1);
+
+    //a button object calls the function
+    document.getElementById("btn1").addEventListener("click", myheader1.changeColor1);
+
+    const mycar = new Model("Ford", "Mustang");
+
+    mycar.show();
+
+    document.write(mycar.brand);
+    document.write(mycar.present());
+    document.write(mycar.show());
+
+    document.getElementById("demo").innerHTML = hello("Wooorld!!");
+  </script>
   </body>
 </html>
