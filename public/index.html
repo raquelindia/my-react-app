@@ -51,6 +51,14 @@
     <p><strong>this</strong> represents: </p>
     <p id="demo2"></p>
 
+    <br>
+    <h3>Destructuring Array</h3>
+    <p id="demo3"></p>
+
+    <br>
+    <h3>Destructuring Nested Array</h3>
+    <p id="demo4"></p>
+
   <script>
     class Car {
       constructor(name) {
@@ -121,6 +129,153 @@ hello = val => "Helllo " + val;
     document.write(mycar.show());
 
     document.getElementById("demo").innerHTML = hello("Wooorld!!");
+
+
+
+    /* var has a function scope, not a block scope */
+    var y = "wvwv";
+
+    /* block scoped version of var */
+    let x = 5.6;
+
+
+    /*
+    const value cannot be changed, has a block scope
+    const does not define a constant value
+    const defines a constant reference to a value
+
+    you cannot reassign a constant value, array or object
+
+    you CAN change elements of constant array
+    & change the properties of constant properties of constant object
+    * */
+
+    const z = 3434;
+
+
+
+
+
+    //React Destructuring
+
+    const vehicles = ['mustang', 'f-150', 'expedition'];
+
+    //old way
+
+    /*
+    const car = vehicles[0];
+    const truck = vehicles[1];
+    const suv = vehicles[2];
+
+    */
+
+    //with destructuring
+    //the order variables are declared is important
+    const [car, truck, suv] = vehicles;
+
+    //destructuring example
+
+    function calculate(a, b) {
+      const add = a + b;
+      const subtract = a - b;
+      const multiply = a * b;
+      const divide = a / b;
+
+      return [add, subtract, multiply, divide];
+    }
+
+    const [add, subtract, multiply, divide] = calculate(4, 7);
+
+document.write("<p>Sum: " + add + "</p>");
+document.write("<p>Difference " + subtract + "</p>");
+document.write("<p>Product: " + multiply + "</p>");
+document.write("<p>Quotient " + divide + "</p>");
+
+
+//Destructuring objects
+    const vehicleOne = {
+      brand: 'Ford',
+      model: 'Mustang',
+      type: 'car',
+      year: 2021,
+      color: 'red'
+    }
+
+    myVehicle(vehicleOne);
+
+    // old way
+    // function myVehicle(vehicle) {
+    //   const message = 'My ' + vehicle.type + ' is a ' + vehicle.color + ' ' + vehicle.brand + ' ' + vehicleModel + '.';
+    // }
+
+    // with destructuring
+
+    //Object properties do not have to be declared in a specific order
+    function myVehicle({type, color, brand, model}) {
+      const message = 'My ' + type + ' is a ' + color + ' ' + brand + ' ' + model + '...';
+      document.getElementById('demo3').innerHTML = message;
+    }
+
+    //destructuring nested objects
+
+    const vehicleTwo = {
+      brand: 'Ford',
+      model: 'Mustang',
+      type: 'car',
+      year: 2021,
+      color: 'red',
+      registration: {
+        city: 'Houston',
+        state: 'Texas',
+        country: 'USA'
+      }
+    }
+
+    myVehicleTwo(vehicleTwo)
+
+    function myVehicleTwo ({model, registration: { state } }) {
+      const message2 = 'My ' + model + ' is registered in ' + state + '.';
+
+      document.getElementById('demo4').innerHTML = message2;
+    }
+
+    const numbers = [1, 2, 3, 4, 5, 6];
+
+    //Spread operator
+    const numbersOne = [1, 2, 3];
+    const numbersTwo = [4, 5, 6];
+
+    const numbersCombined = [...numbersOne, ...numbersTwo];
+
+    document.write(numbersCombined);
+
+
+    //Spread operator with destructuring
+
+    const [one, two, ...rest] = numbers;
+
+    document.write("<p>" + one + "</p>")
+    document.write("<p>" + two + "</p>")
+    document.write("<p>" + rest + "</p>")
+
+
+    //spread operator with objects
+
+    const aVehicle = {
+      brand: 'ford',
+      model: 'mustang',
+      color: 'red'
+    }
+
+    const updatedVehicle = {
+      type: 'car',
+      year: 2021,
+      color: 'yellow'
+    }
+
+    const myUpdatedVehicle = {...aVehicle, ...updatedVehicle};
+    console.log(myUpdatedVehicle);
+
   </script>
   </body>
 </html>
