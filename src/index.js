@@ -1,8 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import Blogs from "./pages/Blogs";
+import Contact from "./pages/Contact";
+import NoPage from "./pages/NoPage";
 import { useState } from 'react';
 import Car2 from './Car2.js';
 import Car6 from './Car6.js';
+
+
+
+
 
 const myFirstElement = <h1>Hello React!</h1>;
 
@@ -621,6 +631,46 @@ function Football() {
         )
     }
 
+    // React Router
+    // Create React App doesn't include page routing
+
+    // Add React Router:
+    // npm i -D react-router-dom
+
+    // for upgrade:
+    // npm i -D react-router-dom@latest
+
+
+    // Folder Structure
+    /*
+    
+        src/pages:
+        - Layout.js
+        - Home.js
+        - Blogs.js
+        - Contact.js
+        - NoPage.js
+    
+    */
+    
+
+        // Use React Router to route pages based on URL:
+
+        export default function App() {
+            return (
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<Layout />}>
+                        <Route index element={<Home />} />
+                        <Route path="blogs" element={<Blogs />} />
+                        <Route path="contact" element={<Contact />} />
+                        <Route path="*" element={<NoPage />} />
+                        </Route>
+                    </Routes>
+                </BrowserRouter>
+            );
+        }
+
 
 const container = document.getElementById('root');
 // changed this:
@@ -631,13 +681,4 @@ const root = ReactDOM.createRoot(container);
 
 
 root.render(<Goal isGoal={false} />);
-root.render(<Garage4 cars={cars} />);
-root.render(<Goal1 isGoal={true} />);
-root.render(<Garage5 />);
-root.render(<Garage6 />);
-root.render(<MyForm />);
-root.render(<MyForm2 />);
-root.render(<MyForm3 />);
-root.render(<MyForm4 />);
-root.render(<MyForm5 />);
-root.render(<MyForm6 />);
+root.render(<App />);
