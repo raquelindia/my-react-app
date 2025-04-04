@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
+import './my-sass.scss';
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Blogs from "./pages/Blogs";
@@ -710,6 +711,7 @@ const Header5 = () => {
     return (
         <>
             <h1 style={myStyle}>Hello Style!</h1>
+            <h1>Helloo</h1>
             <h2 style={{color: "gray"}}>// camelCased Property Names</h2>
             <p style={{backgroundColor: "lightblue"}}>Add a little style</p>
         </>
@@ -718,6 +720,10 @@ const Header5 = () => {
 
 
 
+// Styling React using SASS 
+// install SASS by running this command
+
+// npm i sass
 
 const container = document.getElementById('root');
 // changed this:
