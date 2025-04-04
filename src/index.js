@@ -336,6 +336,98 @@ function Garage3() {
 //React events are written in camelCase
 
 
+function Football() {
+    const shoot = () => {
+      alert("Great Shot!");
+    }
+
+    return (
+      <button onClick={shoot}>Take the shot!! xD</button>
+    );
+  }
+
+  // Passing arguments
+
+  function Football1() {
+    const shoot = (a) => {
+        alert(a);
+    }
+    return (
+    <button onClick={() => shoot("Goal")}>Take the shot!!!</button>
+    );
+  }
+
+
+  // React event handlers object
+
+  function Football2() {
+    const shoot = (a, b) => {
+        alert(b.type);
+    }
+        /*
+
+        'b' represents React event that triggered the 
+        function, in this case the 'click' event
+
+        */
+
+        return (
+            <button onClick={(event) => shoot("Goal", event)}>take the shot!</button>
+        );
+    }
+
+
+    // React Conditional Rendering
+
+    function MissedGoal() {
+        return <h1>MISSED!</h1>;
+    }
+
+    function MadeGoal() {
+        return <h1>Goaal!</h1>;
+    }
+
+    function Goal(props) {
+        const isGoal = props.isGoal;
+        if(isGoal) {
+            return <MadeGoal/>;
+        }
+        return <MissedGoal/>
+    }
+
+
+    // Logical && Operator
+
+    function Garage4(props) {
+        const cars = props.cars;
+        return (
+            <>
+            <h1>Garage</h1>
+            {cars.length > 0 &&
+            <h2>
+                You have {cars.length} cars in your garage.
+            </h2>
+            }
+            </>
+        );
+    }
+
+    const cars = ['Ford', 'BMW', 'Audi'];
+
+
+    // Ternary Operator
+
+    function Goal1(props) {
+        const isGoal = props.isGoal;
+
+        return (
+            <>
+            {   isGoal ? <MadeGoal/> : <MissedGoal/>    }
+            </>
+        );
+    }
+
+
 const container = document.getElementById('root');
 // changed this:
 // const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -367,3 +459,9 @@ root.render(<Header3 />);
 root.render(<Header4 />);
 root.render(<Container />);
 root.render(<Garage3 />);
+root.render(<Football />);
+root.render(<Football1 />);
+root.render(<Football2 />);
+root.render(<Goal isGoal={false} />);
+root.render(<Garage4 cars={cars} />);
+root.render(<Goal1 isGoal={true} />);
