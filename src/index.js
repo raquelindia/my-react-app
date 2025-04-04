@@ -331,6 +331,9 @@ function Garage3() {
     );
 }
 
+//PROPS ARE READ-ONLY!
+
+//React events are written in camelCase
 
 
 const container = document.getElementById('root');
