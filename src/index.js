@@ -711,7 +711,6 @@ const Header5 = () => {
     return (
         <>
             <h1 style={myStyle}>Hello Style!</h1>
-            <h1>Helloo</h1>
             <h2 style={{color: "gray"}}>// camelCased Property Names</h2>
             <p style={{backgroundColor: "lightblue"}}>Add a little style</p>
         </>
@@ -725,6 +724,43 @@ const Header5 = () => {
 
 // npm i sass
 
+
+// React Hooks
+// You must import Hooks from react
+
+function FavoriteColor() {
+    const [color, setColor] = useState("red");
+    
+    return (
+        <>
+            <h1>My favorite color is {color}</h1>
+            <button
+                type="button"
+                onClick={() => setColor("blue")}
+            >Blue
+            </button>
+
+            <button 
+            type="button"
+            onClick={() => setColor("red")}
+            >Red
+            </button>
+
+            <button
+            type="button"
+            onClick={() => setColor("pink")}
+            >Pink
+            </button>
+
+            <button
+            type="button"
+            onClick={() => setColor("green")}
+            >Green
+            </button>
+        </>
+    );
+}
+
 const container = document.getElementById('root');
 // changed this:
 // const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -737,3 +773,4 @@ root.render(<Goal isGoal={false} />);
 root.render(<App />);
 root.render(<Header5 />);
 root.render(<Car2 />);
+root.render(<FavoriteColor />);
