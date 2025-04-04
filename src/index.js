@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './App.css';
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Blogs from "./pages/Blogs";
@@ -672,6 +673,52 @@ function Football() {
         }
 
 
+        // React Memo
+// use memo to skip rendering a component if its props
+//have not changed
+
+//example: 
+
+/*
+
+            import { memo } from "react";
+
+            ********************************
+
+            ~ Todos Component Code ~
+
+            ********************************
+
+            export default memo(Todos);
+
+
+*/
+
+
+//React Inline Styling
+
+// JavaScript Object
+// You can also create an object with styling information 
+const Header5 = () => {
+    const myStyle = {
+        color: "white",
+        backgroundColor: "DodgerBlue",
+        padding: "10px",
+        fontFamily: "Sans-Serif"
+    };
+
+    return (
+        <>
+            <h1 style={myStyle}>Hello Style!</h1>
+            <h2 style={{color: "gray"}}>// camelCased Property Names</h2>
+            <p style={{backgroundColor: "lightblue"}}>Add a little style</p>
+        </>
+    )
+}
+
+
+
+
 const container = document.getElementById('root');
 // changed this:
 // const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -682,3 +729,5 @@ const root = ReactDOM.createRoot(container);
 
 root.render(<Goal isGoal={false} />);
 root.render(<App />);
+root.render(<Header5 />);
+root.render(<Car2 />);
