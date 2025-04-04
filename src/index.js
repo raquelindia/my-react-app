@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { useState } from 'react';
 import Car2 from './Car2.js';
 import Car6 from './Car6.js';
 
@@ -427,6 +428,199 @@ function Football() {
         );
     }
 
+    // React Lists
+
+    // Javascript map() array us generally preferred method
+    function Car9(props) {
+        return <li>I am a { props.brand }</li>;
+    }
+
+    function Garage5() {
+        const cars = ['Ford', 'BMW', 'Audi'];
+        return (
+            <>
+                <h1>Who lives in my garage?</h1>
+                <ul>
+                    {cars.map((car) => <Car9 brand={car} />)}
+                </ul>
+            </>
+        );
+    }
+
+    // Keys: unique ID assigned to each item.
+    // as a last resort you can use array index as a key
+
+    function Car10(props) {
+        return <li>I am a { props.brand }</li>;
+    }
+
+    function Garage6() {
+        const cars = [
+            {id: 1, brand: 'Ford'},
+            {id: 2, brand: 'BMW'},
+            {id: 3, brand: 'Audi'}
+        ];
+        return (
+            <>
+            <h1>Who lives in my garage?</h1>
+            <ul>
+                {cars.map((car) => <Car10 key={car.id} brand={car.brand} />)}
+            </ul>
+            </>
+        );
+    }
+
+    // React Forms
+
+    function MyForm() {
+        return (
+            <form>
+                <label>Enter your name:
+                    <input type="text"  />
+                </label>
+            </form>
+        )
+    }
+
+
+    // Handling Forms: how you handle the data when
+    // it changes value or gets submitted
+
+    // Use the useState Hook to manage the input
+
+    function MyForm2() {
+        const [name, setName] = useState("");
+
+        return (
+            <>
+            <form>
+                <label>
+                    Enter your name: 
+                    <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                </label>
+            </form>
+
+            <h1>Name: {name}</h1>
+          </>
+        )
+    }
+
+    //Submitting Forms 
+
+    function MyForm3() {
+        const [name, setName] = useState("");
+
+        const handleSubmit = (event) => {
+            event.preventDefault();
+            alert(`The name you entered was: ${name}`)
+        }
+
+        return (
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Enter your name:
+                    <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    />
+                </label>
+                <input type="submit" />
+            </form>
+        )
+    }
+
+
+    // Multiple Input Fields
+
+    function MyForm4() {
+        const [inputs, setInputs] = useState({});
+
+        const handleChange = (event) => {
+            const name = event.target.name;
+            const value = event.target.value;
+            setInputs(values => ({...values, [name]: value}))
+        }
+
+        const handleSubmit = (event) => {
+            event.preventDefault();
+            console.log(inputs);
+        }
+
+        return (
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Enter your name:
+                    <input
+                    type="text"
+                    name="username"
+                    value={inputs.username || ""}
+                    onChange={handleChange}
+                    />
+                </label>
+
+                <label>
+                    Enter your age:
+                    <input
+                    type="number"
+                    name="age"
+                    value={inputs.age || ""}
+                    onChange={handleChange}
+                    />
+                </label>
+                <input type="submit" />
+
+                <h3>name {inputs.username}</h3>
+                <h3>age {inputs.age}</h3>
+            </form>
+        )
+    }
+
+    // Textarea: in React the value of textarea
+    //  is placed in a value attribute
+
+    function MyForm5() {
+        const [textarea, setTextarea] = useState(
+            "The content of a textarea goes in the value attribute"
+        );
+
+        const handleChange = (event) => {
+            setTextarea(event.target.value)
+        }
+
+        return (
+            <form>
+                <textarea value={textarea} onChange={handleChange} />
+            </form>
+        )
+    }
+    
+
+    // Select: in React the selected value is 
+    // defined with a value attribute on the select tag
+
+    function MyForm6() {
+        const [myCar, setMyCar] = useState("Volvo");
+
+        const handleChange = (event) => {
+            setMyCar(event.target.value)
+        }
+
+        return (
+            <form>
+                <select value={myCar} onChange={handleChange}>
+                <option value="Ford">Ford</option>
+                <option value="Volvo">Volvo</option>
+                <option value="Fiat">Fiat</option>
+                </select>
+            </form>
+        )
+    }
+
 
 const container = document.getElementById('root');
 // changed this:
@@ -435,33 +629,15 @@ const container = document.getElementById('root');
 // to this:
 const root = ReactDOM.createRoot(container);
 
-root.render(myFirstElement);
-root.render(myList);
-root.render(element1);
-root.render(element2);
-root.render(element3);
-root.render(element4);
-root.render(element5);
-root.render(element6);
-root.render(<Car />);
-root.render(<Car1 color="red"/>);
-root.render(<Garage />);
-root.render(<Car2 />);
-root.render(<Car3 />);
-root.render(<Car4 color="red" />);
-root.render(<Car5 model="Mustang" />);
-root.render(<Garage2  />);
-root.render(<Car6 />);
-root.render(<Car7 />);
-root.render(<Header favcol="yellow" />);
-root.render(<Header2 />);
-root.render(<Header3 />);
-root.render(<Header4 />);
-root.render(<Container />);
-root.render(<Garage3 />);
-root.render(<Football />);
-root.render(<Football1 />);
-root.render(<Football2 />);
+
 root.render(<Goal isGoal={false} />);
 root.render(<Garage4 cars={cars} />);
 root.render(<Goal1 isGoal={true} />);
+root.render(<Garage5 />);
+root.render(<Garage6 />);
+root.render(<MyForm />);
+root.render(<MyForm2 />);
+root.render(<MyForm3 />);
+root.render(<MyForm4 />);
+root.render(<MyForm5 />);
+root.render(<MyForm6 />);
