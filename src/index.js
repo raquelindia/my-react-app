@@ -8,9 +8,14 @@ import Home from "./pages/Home";
 import Blogs from "./pages/Blogs";
 import Contact from "./pages/Contact";
 import NoPage from "./pages/NoPage";
-import { useState } from 'react';
+import { useState, useEffect, createContext, useContext, useRef } from 'react';
 import Car2 from './Car2.js';
 import Car6 from './Car6.js';
+
+
+
+// initialize createContext 
+const UserContext = createContext();
 
 
 
@@ -728,9 +733,22 @@ const Header5 = () => {
 // React Hooks
 // You must import Hooks from react
 
+// Hooks cannot be conditional
+// Hooks can only be called inside React function components
+// Hooks can only be called at the top level of a component
+
+
 function FavoriteColor() {
+
+    // We initialize our state by calling useState in our function component
+    // the first value 'color' is our current state 
+    // the second value 'setColor' is the function used to update our state
+    // these are variables that can be named anything
+    // useState can be used to keep track of 
+    // strings, numbers, booleans, arrays, objects or a combination
+    // you can create multiple state Hooks to track individual values 
     const [color, setColor] = useState("red");
-    
+    // we can now use our state anywhere in our component 
     return (
         <>
             <h1>My favorite color is {color}</h1>
@@ -761,6 +779,193 @@ function FavoriteColor() {
     );
 }
 
+
+// to update one item in an array in useState Hook, use spread operator
+// example: 
+
+/* 
+
+const updateColor = () => {
+    setCar(previousState => {
+            return {...previousState, color: "blue"}
+        });
+    }
+
+*/
+
+
+// React useEffect Hooks
+// allows you to perform side-effects in your components
+// accepts two arguments and the second is optional:
+
+// useEffect(<function>, <dependency>)
+
+function Timer() {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setCount((count) => count + 1);
+        }, 1000);
+    }, []); // <- runs one time be cause empty array
+
+    return <h1>I've rendered {count} times!</h1>;
+} 
+
+// useEffect Hook that is dependent on a variable
+
+function Counter() {
+    const [count, setCount] = useState(0);
+    const [calculation, setCalculation] = useState(0);
+
+    useEffect(() => {   
+        setCalculation(() => count * 2);
+    }, [count]); // <- add the count variable here
+
+    // if there are multiple dependencies, 
+    // they should be included in the dependency array
+
+    return (
+        <>
+
+        <p>Count: {count} </p>
+        <button onClick={() => setCount((c) => c + 1)}>+</button>
+        <p>Calculation: {calculation}</p>
+        </>
+    );
+}
+
+// Effect Cleanup
+
+function Timer2() {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        let timer = setTimeout(() => {
+            setCount((count) => count + 1);
+        }, 1000);
+
+        return () => clearTimeout(timer)
+    }, []);
+
+    return <h1>I've rendered {count} times!</h1>;
+}
+
+
+// React useContext Hook
+// without useContext Hook you 
+// need to pass props through nested components
+
+function Component1() {
+    const [user, setUser] = useState("Jesse Hall");
+
+    return (
+        <>
+        <h1>{`Hello ${user}!`}</h1>
+        <Component2 user={user} />
+        </>
+    );
+}
+
+function Component2({ user }){
+    return (
+        <>
+        <h1>Component 2</h1>
+        <Component3 user={user} />
+        </>
+    );
+}
+
+function Component3({user}) {
+    return (
+        <>
+        <h1>Component 3</h1>
+        <Component4 user={user} />
+        </>
+    );
+}
+
+function Component4({user}) {
+    return (
+        <>
+            <h1>Component 4</h1>
+            <Component5 user={user} />
+
+        </>
+    );
+}
+
+function Component5({user}) {
+    return (
+        <>
+        <h1>Component 5</h1>
+        <h2>{`Hello ${user} again!`}</h2>
+        </>
+    );
+}
+
+// Create Context 
+// Context Provider
+
+function ComponentOne() {
+    const [user1, setUser] = useState("Jesse Hall");
+
+    return (
+        <UserContext.Provider value={user1}>
+            <h1>{`Hello ${user1}!`}</h1>
+            <ComponentTwo />
+        </UserContext.Provider>
+    );
+}
+
+// useContext 
+
+function ComponentTwo() {
+
+    return (
+        <>
+            <h1>Component 2</h1>
+            <ComponentThree />
+        </>
+    );
+}
+
+function ComponentThree() {
+    const user1 = useContext(UserContext);
+
+    return (
+        <>
+        <h1>Component 3</h1>
+        <h2>{`Hello ${user1} again!`}</h2>
+        </>
+    );
+}
+
+
+// React useRef Hook
+// use useRef Hook to track application renders
+// useRef only returns one object called 'current'
+
+function App2() {
+    const [inputValue2, setInputValue2] = useState("");
+    const count3 = useRef(0);
+
+    useEffect(() => {
+        count3.current = count3.current + 1;
+    });
+
+    return (
+        <>
+            <input 
+            type="text"
+            value={inputValue2}
+            onChange={(e) => setInputValue2(e.target.value)}
+            />
+            <h1>Render Count: {count3.current} </h1>
+        </>
+    );
+}
+
 const container = document.getElementById('root');
 // changed this:
 // const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -771,6 +976,4 @@ const root = ReactDOM.createRoot(container);
 
 root.render(<Goal isGoal={false} />);
 root.render(<App />);
-root.render(<Header5 />);
-root.render(<Car2 />);
-root.render(<FavoriteColor />);
+root.render(<App2 />);
